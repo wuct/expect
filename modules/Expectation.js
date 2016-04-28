@@ -436,7 +436,13 @@ class Expectation {
     assert(
       typeof this.actual === 'object',
       'The "actual" argument in expect(actual).toExcludeKeys() must be an object, not %s',
-      typeof this.actual
+      inspect(this.actual)
+    )
+
+    assert(
+      isArray(keys),
+      'The "keys" argument in expect(actual).toIncludeKeys(keys) must be an array, not %s',
+      inspect(keys)
     )
 
     const contains = keys.every(key => comparator(this.actual, key))
