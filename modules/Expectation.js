@@ -2,6 +2,7 @@ import isEqual from 'is-equal'
 import isRegExp from 'is-regex'
 import tmatch from 'tmatch'
 import has from 'has'
+import inspect from 'object-inspect'
 import assert from './assert'
 import { isSpy } from './SpyUtils'
 import {
@@ -398,7 +399,13 @@ class Expectation {
     assert(
       typeof this.actual === 'object',
       'The "actual" argument in expect(actual).toIncludeKeys() must be an object, not %s',
-      typeof this.actual
+      inspect(this.actual)
+    )
+
+    assert(
+      isArray(keys),
+      'The "keys" argument in expect(actual).toIncludeKeys(keys) must be an array, not %s',
+      inspect(keys)
     )
 
     const contains = keys.every(key => comparator(this.actual, key))
